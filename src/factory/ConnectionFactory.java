@@ -10,7 +10,7 @@ public class ConnectionFactory {
     
     public Connection getConnection(){
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost/sitemapoo", "root", "");
+            return DriverManager.getConnection("jdbc:mysql://localhost/sistemapoo", "root", "root");
         } catch (SQLException excecao) {
             throw new RuntimeException(excecao);
         }
