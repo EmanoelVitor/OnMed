@@ -8,8 +8,8 @@ public class Medico {
     String nome;
     String telefone;
     String crm;
-    String especialidade;
     String genero;
+    String especialidade;
 
     public Long getId() {
         return id;
@@ -43,6 +43,14 @@ public class Medico {
         this.crm = crm;
     }
 
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
     public String getEspecialidade() {
         return especialidade;
     }
@@ -51,13 +59,5 @@ public class Medico {
         this.especialidade = especialidade;
     }
 
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-    
     
 }

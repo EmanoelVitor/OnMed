@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 
 public class PacienteDAO {
-    private Connection connetion;
+    private Connection connection;
     Long id;
     String nome;
     String telefone;
@@ -20,13 +20,13 @@ public class PacienteDAO {
     String genero;
    
     public PacienteDAO(){
-        this.connetion = new ConnectionFactory().getConnection();
+        this.connection = new ConnectionFactory().getConnection();
     }
     
     public void salva (Paciente objPaciente){
          String sql = "INSERT INTO paciente (nome_paciente,tel_paciente,cpf_paciente,rg_paciente,end_paciente,gen_paciente) VALUES (?,?,?,?,?,?)";
          try {
-             PreparedStatement stmt = connetion.prepareStatement(sql);
+             PreparedStatement stmt = connection.prepareStatement(sql);
              stmt.setString(1, objPaciente.getNome());
              stmt.setString(2, objPaciente.getTelefone());
              stmt.setString(3, objPaciente.getCpf());
@@ -39,4 +39,22 @@ public class PacienteDAO {
             throw new RuntimeException(e);
         }
     }
+    
+    public void deletar(Paciente objPaciente) {
+        try {
+            String sql;
+            if (!String.valueOf(objPaciente.getId()).isEmpty()) {
+                sql = "DELETE FROM paciente WHERE paciente.id_paciente = ?";
+                PreparedStatement stmt = connection.prepareStatement(sql);
+
+                stmt.setString(1, objPaciente.getId());
+                stmt.execute();
+                stmt.close();
+
+            }
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
+
 }

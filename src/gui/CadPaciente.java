@@ -18,6 +18,8 @@ public class CadPaciente extends javax.swing.JFrame {
      */
     public CadPaciente() {
         initComponents();
+                
+        carregarTable(null);
         /*
         //Centralizando a janela
         this.setLocationRelativeTo(null);
@@ -26,7 +28,7 @@ public class CadPaciente extends javax.swing.JFrame {
         // Trocando cursor para HAND CURSOR(Maozinha)
         // jButtonRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         // Variavel con recebendo a conexao
-        //carregarTable(null);
+        
     }*/
     }
 
@@ -58,6 +60,9 @@ public class CadPaciente extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         tel_paciente = new javax.swing.JFormattedTextField();
         cpf_paciente = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbListagemPaciente = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -168,7 +173,44 @@ public class CadPaciente extends javax.swing.JFrame {
         });
         jPanel1.add(cpf_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 200, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 400));
+        tbListagemPaciente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nome", "Fone", "CPF", "RG", "Endereço", "Gênero"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tbListagemPaciente);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, 210));
+
+        jButton3.setText("DELETAR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 530));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -227,6 +269,26 @@ public class CadPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cpf_pacienteActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Paciente objPaciente = new Paciente();
+        objPaciente.setId(id_paciente.getText());
+
+        // fazendo a validação dos dados
+        if ((id_paciente.getText().isEmpty())) {
+            JOptionPane.showMessageDialog(null, "Informe valores para os campos");
+        } else {
+            // instanciando a classe UsuarioDAO do pacote dao e criando seu objeto dao
+            objDAO = new PacienteDAO();
+            objDAO.deletar(objPaciente);
+            JOptionPane.showMessageDialog(null, "Cliente Removido com Sucesso! ");
+        }
+
+        carregarTable(null);
+
+        // apaga os dados preenchidos nos campos de texto
+        setClear();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -270,6 +332,7 @@ public class CadPaciente extends javax.swing.JFrame {
     private javax.swing.JTextField id_paciente;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -279,8 +342,10 @@ public class CadPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nome_paciente;
     private javax.swing.JTextField rg_paciente;
+    private javax.swing.JTable tbListagemPaciente;
     private javax.swing.JFormattedTextField tel_paciente;
     // End of variables declaration//GEN-END:variables
 
@@ -292,5 +357,13 @@ public class CadPaciente extends javax.swing.JFrame {
         rg_paciente.setText(null);
         end_paciente.setText(null);
         gen_paciente.setText(null);
+    }
+
+    private void carregarTable(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void setId(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
